@@ -1,0 +1,66 @@
+<NotepadPlus>
+    <Project name="Tenki">
+        <Folder name="imgs">
+            <Folder name="codes">
+                <File name="imgs\codes\200.png" />
+                <File name="imgs\codes\201.png" />
+                <File name="imgs\codes\202.png" />
+                <File name="imgs\codes\210.png" />
+                <File name="imgs\codes\211.png" />
+                <File name="imgs\codes\212.png" />
+                <File name="imgs\codes\221.png" />
+                <File name="imgs\codes\230.png" />
+                <File name="imgs\codes\231.png" />
+                <File name="imgs\codes\232.png" />
+                <File name="imgs\codes\300.png" />
+                <File name="imgs\codes\301.png" />
+                <File name="imgs\codes\302.png" />
+                <File name="imgs\codes\310.png" />
+                <File name="imgs\codes\311.png" />
+                <File name="imgs\codes\312.png" />
+                <File name="imgs\codes\313.png" />
+                <File name="imgs\codes\314.png" />
+                <File name="imgs\codes\321.png" />
+                <File name="imgs\codes\500.png" />
+                <File name="imgs\codes\501.png" />
+                <File name="imgs\codes\502.png" />
+                <File name="imgs\codes\503.png" />
+                <File name="imgs\codes\504.png" />
+                <File name="imgs\codes\511.png" />
+                <File name="imgs\codes\520.png" />
+                <File name="imgs\codes\521.png" />
+                <File name="imgs\codes\522.png" />
+                <File name="imgs\codes\531.png" />
+                <File name="imgs\codes\600.png" />
+                <File name="imgs\codes\601.png" />
+                <File name="imgs\codes\602.png" />
+                <File name="imgs\codes\603.png" />
+                <File name="imgs\codes\611.png" />
+                <File name="imgs\codes\612.png" />
+                <File name="imgs\codes\615.png" />
+                <File name="imgs\codes\616.png" />
+                <File name="imgs\codes\620.png" />
+                <File name="imgs\codes\621.png" />
+                <File name="imgs\codes\622.png" />
+                <File name="imgs\codes\701.png" />
+                <File name="imgs\codes\711.png" />
+                <File name="imgs\codes\721.png" />
+                <File name="imgs\codes\731.png" />
+                <File name="imgs\codes\741.png" />
+                <File name="imgs\codes\751.png" />
+                <File name="imgs\codes\761.png" />
+                <File name="imgs\codes\762.png" />
+                <File name="imgs\codes\771.png" />
+                <File name="imgs\codes\781.png" />
+                <File name="imgs\codes\800.png" />
+                <File name="imgs\codes\801.png" />
+                <File name="imgs\codes\803.png" />
+                <File name="imgs\codes\804.png" />
+            </Folder>
+            <File name="imgs\humidity.png" />
+        </Folder>
+        <File name="index.html" />
+        <File name="styles.css" />
+        <File name="app.js" />
+    </Project>
+</NotepadPlus>
