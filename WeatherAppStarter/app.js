@@ -1,3 +1,7 @@
+//Using the OpenWeatherMap API to make this.
+//The program can detect the users location with geolocation or with the zipcode provided.
+//The API can recognize ISO 3166-1 alpha-2 codes. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+
 var APPID = "5d6a5f56f935e3664c0084469ebd625f";
 var temp;
 var loc;
@@ -20,7 +24,7 @@ window.onload = function () {
 		}
 		navigator.geolocation.getCurrentPosition(showPosition);
 	} else {
-		var zip = window.prompt("Could not discover your location. What is your zip code?")
+		var zip = window.prompt("Could not discover your location. What is your zip code?");
 		updateByZip(zip);
 	}
 }
@@ -30,6 +34,8 @@ function updateByZip(zip) {
 		"zip=" + zip +
 		"&APPID=" + APPID;
 	sendRequest(url);
+	
+	console.log(url + " " + zip)
 }
 
 function updateByGeo(lat, lon) {
@@ -38,6 +44,8 @@ function updateByGeo(lat, lon) {
 		"&lon=" + lon +
 		"&APPID=" + APPID;
 	sendRequest(url);
+	
+	console.log(url)
 }
 
 function sendRequest(url) {
@@ -48,11 +56,13 @@ function sendRequest(url) {
 			var weather = {};
 			weather.icon = data.weather[0].id;
 			weather.humidity = data.main.humidity;
-			weather.wind = data.wind.speed;
+			weather.wind = mph2kmh(data.wind.speed);
 			weather.direction = degreesToDirection(data.wind.deg);
 			weather.loc = data.name;
 			weather.temp = K2C(data.main.temp);
 			update(weather);
+			
+			console.log(weather.temp + " " + weather.loc + " " + weather.humidity + " " + weather.wind + " " + weather.direction);
 		}
 	};
 	xmlhttp.open("GET", url, true);
@@ -85,6 +95,14 @@ function degreesToDirection(degrees) {
 	return "N";
 }
 
+function mph2kmh(mph){
+	return (mph * 1.60935).toFixed(2);
+}
+
 function K2C(k){
 	return Math.round(k - 273,15);
 }
+
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//Above: Weather Below: The Clothes system
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
