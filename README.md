@@ -17,3 +17,7 @@ Here are the features that I want to add to my weather program:
     1. This is the human part of the website/program. Depending on the values the API returns it gives advice on what sort of clothes you should wear.
     2. Optional feature: the program also thinks about the color your clothing is and depending on that it recommends better outfits.
     3. The user can put in what sort of clothes he has and the program can complement the outfit.
+
+NOTE*
+You need to host a local server to request data from the openweahtermarp api.
+You could use node.js.
