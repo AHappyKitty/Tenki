@@ -10,6 +10,18 @@ var humidity;
 var wind;
 var direction;
 
+var upper;
+var middle;
+var lower;
+var greet;
+var clothesUpper;
+var clothesMiddle;
+var clothesLower;
+
+var iconValue;
+var tempValue;
+
+
 window.onload = function () {
 	temp = document.getElementById("temperature");
 	loc = document.getElementById("location");
@@ -17,6 +29,11 @@ window.onload = function () {
 	humidity = document.getElementById("humidity");
 	wind = document.getElementById("wind");
 	direction = document.getElementById("direction");
+	
+	greet = document.getElementById("greet");
+	upper = document.getElementById("upper");
+	middle = document.getElementById("middle");
+	lower = document.getElementById("lower");
 	
 	if(navigator.geolocation) {
 		var showPosition = function(position) {
@@ -62,7 +79,7 @@ function sendRequest(url) {
 			weather.temp = K2C(data.main.temp);
 			update(weather);
 			
-			console.log(weather.temp + " " + weather.loc + " " + weather.humidity + " " + weather.wind + " " + weather.direction);
+			console.log(weather.temp + " " + weather.loc + " " + weather.humidity + " " + weather.wind + " " + weather.direction + " " + weather.icon);
 		}
 	};
 	xmlhttp.open("GET", url, true);
@@ -76,6 +93,9 @@ function update(weather) {
 	loc.innerHTML = weather.loc;
 	temp.innerHTML = weather.temp;
 	icon.src = "imgs/codes/" + weather.icon + ".png";
+	
+	greet.innerHTML = chooseGreet(weather);
+	clothesSystem(weather);
 }
 
 function degreesToDirection(degrees) {
@@ -106,3 +126,39 @@ function K2C(k){
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Above: Weather Below: The Clothes system
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function chooseGreet(weather) {
+	iconValue = weather.icon;
+	
+	if (iconValue <  300){
+		return "It's under 300";
+	} else if (iconValue >= 300 && iconValue < 500) {
+		return "It's above 300 and under 500";
+	} else if (iconValue >= 500 && iconValue < 600) {
+		return "It's above 500 and under 600";
+	} else if (iconValue >= 600 && iconValue < 700) {
+		return "It's above 600 and under 700";
+	} else if (iconValue >= 700 && iconValue < 800) {
+		return "It's above 700 and under 800";
+	} else {
+		return "It's above 800";
+	}
+	
+	console.log(iconValue);
+}
+
+function clothesSystem(weather) {
+	tempValue = weather.temp;
+	
+	clothesUpper = "hello";
+	clothesMiddle = "noooo";
+	clothesLower = "heya!";
+	
+	updateC();
+}
+
+function updateC(clothes) {
+	upper.innerHTML = clothesUpper;
+	middle.innerHTML = clothesMiddle;
+	lower.innerHTML = clothesLower;
+}
