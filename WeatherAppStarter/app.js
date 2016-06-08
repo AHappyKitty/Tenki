@@ -21,6 +21,10 @@ var clothesLower;
 var iconValue;
 var tempValue;
 
+var getDate = new Date();
+var currentHour;
+var currentMintues;
+var displayHour;
 
 window.onload = function () {
 	temp = document.getElementById("temperature");
@@ -29,6 +33,16 @@ window.onload = function () {
 	humidity = document.getElementById("humidity");
 	wind = document.getElementById("wind");
 	direction = document.getElementById("direction");
+	
+	currentHour = getDate.getHours();
+	currentMinutes = getDate.getMinutes();
+		if (currentMinutes < 10) {
+			currentMinutes = "0" + currentMinutes;
+		}
+		console.log(currentHour + " " + currentMinutes);
+	displayHour = document.getElementById("time");
+	displayHour.innerHTML = currentHour + ":" + currentMinutes;
+	
 	
 	greet = document.getElementById("greet");
 	upper = document.getElementById("upper");
@@ -128,27 +142,37 @@ function K2C(k){
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
 function chooseGreet(weather) {
-	iconValue = weather.icon;
-	
-	if (iconValue <  300){
-		return "It's under 300";
-	} else if (iconValue >= 300 && iconValue < 500) {
-		return "It's above 300 and under 500";
-	} else if (iconValue >= 500 && iconValue < 600) {
-		return "It's above 500 and under 600";
-	} else if (iconValue >= 600 && iconValue < 700) {
-		return "It's above 600 and under 700";
-	} else if (iconValue >= 700 && iconValue < 800) {
-		return "It's above 700 and under 800";
-	} else {
-		return "It's above 800";
+	if (currentHour >= 6 && currentHour < 12) {
+		return morningGreet();
+	} else if (currentHour >= 12 && currentHour < 18) {
+		return afternoonGreet;
+	} else if (currentHour >= 18 && currentHour <= 23) {
+		return eveningGreet;
+	} else if (currentHour > 0 && currentHour < 6) {
+		return nightGreet;
 	}
 	
-	console.log(iconValue);
+	function morningGreet() {
+		var morningChoices = ["Goede morgen!", "Lekker geslapen?", "Een start van een nieuwe dag!"];
+		return morningChoices[Math.floor(Math.random()*morningChoices.length)];
+	}
+	
+	function afternoonGreet() {
+		
+	}
+	
+	function eveningGreet() {
+		
+	}
+	
+	function nightGreet() {
+		
+	}	
 }
 
 function clothesSystem(weather) {
 	tempValue = weather.temp;
+	iconValue = weather.icon;
 	
 	clothesUpper = "hello";
 	clothesMiddle = "noooo";
