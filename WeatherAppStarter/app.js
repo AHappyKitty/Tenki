@@ -1,6 +1,7 @@
 //Using the OpenWeatherMap API to make this.
 //The program can detect the users location with geolocation or with the zipcode provided.
 //The API can recognize ISO 3166-1 alpha-2 codes. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+//VARSITY - So Sad, So Sad
 
 var APPID = "5d6a5f56f935e3664c0084469ebd625f";
 var temp;
@@ -25,6 +26,32 @@ var getDate = new Date();
 var currentHour;
 var currentMintues;
 var displayHour;
+
+//UpperWarm
+var tshirt = false;
+var blouse = false;
+//MiddleWarm
+var shorts = false;
+var swimmingtrunks = false;
+//LowerWarm
+var slippers = false;
+var sneakers = false;
+var shoes = false;
+
+//UpperNormal
+var shirt = false;
+var vest = false;
+var sweater = false;
+//MiddleNormal
+var trousers = false;
+//LowerNormal
+var blotevoeten = false;
+
+//UpperCold
+var shirtjasje = false;
+var shirtvest = false;
+var tshirtvest = false;
+var blousevest = false;
 
 window.onload = function () {
 	temp = document.getElementById("temperature");
@@ -101,6 +128,9 @@ function sendRequest(url) {
 }
 
 function update(weather) {
+	tempValue = weather.temp;
+	iconValue = weather.icon;
+	
 	wind.innerHTML = weather.wind;
 	direction.innerHTML = weather.direction;
 	humidity.innerHTML = weather.humidity;
@@ -109,7 +139,9 @@ function update(weather) {
 	icon.src = "imgs/codes/" + weather.icon + ".png";
 	
 	greet.innerHTML = chooseGreet(weather);
-	clothesSystem(weather);
+	updateC(weather);
+	
+	console.log(tempValue  + " " + iconValue)
 }
 
 function degreesToDirection(degrees) {
@@ -174,18 +206,154 @@ function chooseGreet(weather) {
 }
 
 function clothesSystem(weather) {
-	tempValue = weather.temp;
-	iconValue = weather.icon;
 	
-	clothesUpper = "hello";
-	clothesMiddle = "noooo";
-	clothesLower = "heya!";
+	if (tempValue >= 20) {
+		warmClothesUpper();
+		warmClothesMiddle();
+		warmClothesLower();
+	} else if (tempValue >=15 && tempValue < 20) {
+		normalClothesUpper();
+		normalClothesMiddle();
+		normalClothesLower();
+	} else {
+		coldClothesUpper();
+		coldClothesMiddle();
+		coldClothesLower();
+	}
 	
-	updateC();
+	function warmClothesupper() {
+		if (tshirt===true) {
+			
+		}
+	}
+	
+	if (tshirt===false) {
+		alert("JA");
+	} else {
+		alert("nope");
+	}
+
+	updateC(weather);
 }
 
-function updateC(clothes) {
+function updateC(weather) {
 	upper.innerHTML = clothesUpper;
 	middle.innerHTML = clothesMiddle;
 	lower.innerHTML = clothesLower;
 }
+
+function tshirtF() {
+	if  (tshirt === false) {
+		tshirt = true;
+	} else {
+		tshirt = false;
+	}
+	clothesSystem();
+}
+
+function shirtF() {
+	if (shirt === false) {
+		shirt = true;
+	} else {
+		shirt - false;
+	}
+	clothesSystem();
+}
+
+function  blouseF() {
+	if (blouse === false) {
+		blouse = true;
+	} else {
+		blouse = false;
+	}
+	clothesSystem();
+}
+
+function jasjeF() {
+	if (jasje === false) {
+		jasje = true;
+	} else {
+		jasje = false;
+	}
+	clothesSystem();
+}
+
+function vestF() {
+	if (vest === false) {
+		vest = true;
+	} else {
+		vest = false;
+	}
+	clothesSystem();
+}
+
+function sweaterF() {
+	if (sweater === false) {
+		sweater = true;
+	} else {
+		sweater = false;
+	}
+	clothesSystem();
+}
+
+function shortsF() {
+	if (shorts === false) {
+		shorts = true;
+	} else {
+		shorts = false;
+	}
+	clothesSystem();
+}
+
+function swimmingtrunksF() {
+	if (swimmingtrunks === false) {
+		swimmingtrunks = true;
+	} else {
+		swimmingtrunks = false;
+	}
+	clothesSystem();
+}
+
+function trousersF() {
+	if (trousers === false) {
+		trousers = true;
+	} else {
+		trousers= false;
+	}
+	clothesSystem();
+}
+
+function slippersF() {
+	if (slippers === false) {
+		slippers = true;
+	} else {
+		slippers = false;
+	}
+	clothesSystem();
+}
+
+function sneakersF() {
+	if (sneakers === false) {
+		sneakers = true;
+	} else {
+		sneakers = false;
+	}
+	clothesSystem();
+}
+
+function shoesF() {
+	if (shoes === false) {
+		shoes = true;
+	} else {
+		shoes = false;
+	}
+	clothesSystem();
+}
+
+
+
+
+
+
+
+
