@@ -15,9 +15,9 @@ var upper;
 var middle;
 var lower;
 var greet;
-var clothesUpper;
-var clothesMiddle;
-var clothesLower;
+var clothesUpper = "Upper";
+var clothesMiddle = "Middle";
+var clothesLower = "Lower";
 
 var iconValue;
 var tempValue;
@@ -44,14 +44,14 @@ var vest = false;
 var sweater = false;
 //MiddleNormal
 var trousers = false;
-//LowerNormal
-var blotevoeten = false;
 
 //UpperCold
-var shirtjasje = false;
+var jacket = false;
+var shirtjacket = false;
 var shirtvest = false;
 var tshirtvest = false;
 var blousevest = false;
+
 
 window.onload = function () {
 	temp = document.getElementById("temperature");
@@ -207,30 +207,128 @@ function chooseGreet(weather) {
 
 function clothesSystem(weather) {
 	
-	if (tempValue >= 20) {
+	if (tempValue >= 20 && !(iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531)) {
 		warmClothesUpper();
 		warmClothesMiddle();
 		warmClothesLower();
-	} else if (tempValue >=15 && tempValue < 20) {
+	} else if (tempValue >= 20 && iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531) {
+		normalClothesUpper;
+		normalClothesMiddle;
+		normalClothesLower;
+	} else if (tempValue >= 15 && tempValue < 20 && !(iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531)) {
 		normalClothesUpper();
 		normalClothesMiddle();
 		normalClothesLower();
+	} else if (tempValue >= 15 && tempValue <20 && iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531) {
+		coldClothesUpper;
+		coldClothesMiddle;
+		coldClothesLower;
 	} else {
 		coldClothesUpper();
 		coldClothesMiddle();
 		coldClothesLower();
 	}
 	
-	function warmClothesupper() {
+	function warmClothesUpper() {
 		if (tshirt===true) {
-			
+			clothesUpper = "T-Shirt";
+		} else if (tshirt===false && blouse===true) {
+			clothesUpper = "Blouse";
+		} else if (tshirt===false && blouse===false) {
+			clothesUpper = "Nothing";
 		}
 	}
 	
-	if (tshirt===false) {
-		alert("JA");
-	} else {
-		alert("nope");
+	function warmClothesMiddle() {
+		if (shorts===true) {
+			clothesMiddle = "Shorts";
+		} else if (shorts===false && swimmingtrunks===true) {
+			clothesMiddle = "Swimmingtrunks";
+		} else if (shorts===false && swimmingtrunks===false) {
+			clothesMiddle = "Underwear";
+		}
+	}
+	
+	function warmClothesLower() {
+		if (slippers===true) {
+			clothesLower = "Slippers";
+		} else if (slippers===false && sneakers===true) {
+			clothesLower = "Sneakers";
+		} else if (slippers===false && sneakers===false) {
+			clothesLower = "Lower";
+		}
+	}
+	
+	function normalClothesUpper () {
+		if (shirt===true) {
+			clothesUpper = "Shirt";
+		} else if (shirt===false && vest===true) {
+			clothesUpper = "Vest";
+		} else if (vest=== false && shirt===false && tshirt===true) {
+			clothesUpper = "T-Shirt";
+		} else if (vest=== false && shirt===false && tshirt===false && blouse===true) {
+			clothesUpper =  "Blouse";
+		} else if (vest=== false && shirt===false && tshirt===false && blouse===false && sweater===true) {
+			clothesUpper = "Sweater";
+		} else {
+			clothesUpper = "Nothing";
+		}
+	}
+	
+	function normalClothesMiddle () {
+		if (shorts===true) {
+			clothesMiddle = "Shorts";
+		} else if (shorts===false && trousers===true) {
+			clothesMiddle = "Trousers";
+		} else if (shorts===false && trousers===false)
+			clothesMiddle = "Underwear";
+	}
+	
+	function normalClothesLower () {
+		if (sneakers===true) {
+			clothesLower = "Sneakers";
+		} else if (sneakers===false && slippers===true) {
+			clothesLower = "Slippers";
+		} else if (sneakers===false && slippers===false && shoes===true) {
+			clothesLower = "Shoes";
+		} else {
+			clothesLower = "Nothing";
+		}
+	}
+	
+	function coldClothesUpper () {
+		if (sweater===true) {
+			clothesUpper = "Sweater";
+		} else if (sweater===false && shirt===true && jacket===true) {
+			clothesUpper = "Shirt and a Jacket";
+		} else if (sweater===false && shirt===true && jacket===false && vest===true) {
+			clothesUpper = "Shirt and a Vest";
+		} else if (sweater===false && shirt===false && jacket===false && vest===true && tshirt===true) {
+			clothesUpper = "T-Shirt and a Vest";
+		}  else if  (sweater===false && shirt===false && jacket===false && vest===true && tshirt===false && blouse===true) {
+			clothesUpper = "Blouse and a Vest"; 
+		} else if (sweater===false && shirt===true && jacket===false && vest===false && tshirt===false && blouse===false) {
+			clothesUpper = "Shirt";
+		} else {
+			clothesUpper = "Nothing";
+		}
+	}
+	
+	function coldClothesMiddle () {
+		if (trousers===true) {
+			clothesMiddle = "Trousers";
+		} else if (trousers===false) {
+			clothesMiddle = "Underwear";
+		}
+	}
+	
+	function coldClothesLower () {
+		if (sneakers===true) {
+			clothesLower = "Sneakers";
+		} else if (sneakers===false && shoes===true) {
+			clothesLower = "Shoes";
+		} else if (sneakers===false && shoes===false)
+			clothesLower = "Nothing";
 	}
 
 	updateC(weather);
@@ -240,6 +338,19 @@ function updateC(weather) {
 	upper.innerHTML = clothesUpper;
 	middle.innerHTML = clothesMiddle;
 	lower.innerHTML = clothesLower;
+	
+	showtshirt.innerHTML = tshirt;
+	showshirt.innerHTML = shirt;
+	showblouse.innerHTML = blouse;
+	showjacket.innerHTML = jacket;
+	showvest.innerHTML = vest;
+	showsweater.innerHTML = sweater;
+	showshorts.innerHTML = shorts;
+	showswimmingtrunks.innerHTML = swimmingtrunks;
+	showtrousers.innerHTML = trousers;
+	showslippers.innerHTML = slippers;
+	showsneakers.innerHTML = sneakers;
+	showshoes.innerHTML = shoes;
 }
 
 function tshirtF() {
@@ -255,7 +366,7 @@ function shirtF() {
 	if (shirt === false) {
 		shirt = true;
 	} else {
-		shirt - false;
+		shirt = false;
 	}
 	clothesSystem();
 }
@@ -269,11 +380,11 @@ function  blouseF() {
 	clothesSystem();
 }
 
-function jasjeF() {
-	if (jasje === false) {
-		jasje = true;
+function jacketF() {
+	if (jacket === false) {
+		jacket = true;
 	} else {
-		jasje = false;
+		jacket = false;
 	}
 	clothesSystem();
 }
