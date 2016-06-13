@@ -51,7 +51,7 @@ var shirtjacket = false;
 var shirtvest = false;
 var tshirtvest = false;
 var blousevest = false;
-
+var comment;
 
 window.onload = function () {
 	temp = document.getElementById("temperature");
@@ -75,6 +75,7 @@ window.onload = function () {
 	upper = document.getElementById("upper");
 	middle = document.getElementById("middle");
 	lower = document.getElementById("lower");
+	comment = document.getElementById("giveComment");
 	
 	if(navigator.geolocation) {
 		var showPosition = function(position) {
@@ -329,8 +330,7 @@ function clothesSystem(weather) {
 			clothesLower = "Shoes";
 		} else if (sneakers===false && shoes===false)
 			clothesLower = "Nothing";
-	}
-
+	}	
 	updateC(weather);
 }
 
@@ -351,6 +351,37 @@ function updateC(weather) {
 	showslippers.innerHTML = slippers;
 	showsneakers.innerHTML = sneakers;
 	showshoes.innerHTML = shoes;
+	
+	giveComment.innerHTML = comment();
+	
+	function comment() {
+		if (tempValue >= 20 && !(iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531)) {
+			return warmComment();
+		} else if (tempValue >= 20 && iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531) {
+			return normalComment();
+		} else if (tempValue >= 15 && tempValue < 20 && !(iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531)) {
+			return normalComment();
+		} else if (tempValue >= 15 && tempValue <20 && iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531) {
+			return coldComment();
+		} else {
+			return coldComment();
+		}
+	
+		function warmComment() {
+			var warmArray = ["Well here you go, I recommend "];
+			return warmArray[Math.floor(Math.random()*warmArray.length)];
+		}
+	
+		function normalComment() {
+			var normalArray = ["HAI"];
+			return normalArray[Math.floor(Math.random()*normalArray.length)];
+		}
+		
+		function coldComment() {
+			var coldArray = ["oooooo"];
+			return coldArray[Math.floor(Math.random()*coldArray.length)];
+		}
+	}
 }
 
 function tshirtF() {
