@@ -15,9 +15,9 @@ var upper;
 var middle;
 var lower;
 var greet;
-var clothesUpper = "Upper";
-var clothesMiddle = "Middle";
-var clothesLower = "Lower";
+var clothesUpper = "Nothing";
+var clothesMiddle = "Nothing";
+var clothesLower = "Nothing";
 
 var iconValue;
 var tempValue;
@@ -355,31 +355,21 @@ function updateC(weather) {
 	giveComment.innerHTML = comment();
 	
 	function comment() {
-		if (tempValue >= 20 && !(iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531)) {
-			return warmComment();
-		} else if (tempValue >= 20 && iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531) {
-			return normalComment();
-		} else if (tempValue >= 15 && tempValue < 20 && !(iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531)) {
-			return normalComment();
-		} else if (tempValue >= 15 && tempValue <20 && iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531) {
-			return coldComment();
+		if (clothesMiddle == "Underwear") {
+			var UndieArray = ["Fake it till your naked", "Hot damn, underwear?", "Just do it!", "Show it off! I guess", "Why the $@*% u lying? We know you got trousers!", "You sure you got nothing else than underwear?"];
+			return UndieArray[Math.floor(Math.random()*UndieArray.length)]
+		} else if (clothesUpper == "Nothing" &&  clothesMiddle == "Underwear" && clothesLower == "Nothing") {
+			var nothingArray = ["Why the $%*# lying? We know you got clothes!", "You crazy man, nothing but underwear!", "Show off that naked body!", "'OMG everything deleted, #prank.' -Jasper Beckeringh", "Oh no, I think we need to call the fashion police, officer Beckeringh!"];
+			return nothingArray[Math.floor(Math.random()*nothingArray.length)];
+		} else if (clothesUpper == "Nothing" && clothesMiddle == "Swimmingtrunks" && clothesLower == "Slippers") {
+			var swimArray = ["Wow, kind of sexy I guess? Unless you have no abs.", "Go swimming while you're at it!", "No shorts? Well here you go, a swimmingtrunk"];
+			return swimArray[Math.floor(Math.random()*swimArray)];
+		} else if ((clothesUpper == "Sweater" || clothesUpper == "Shirt and a Jacket" || clothesUpper == "Shirt and a Vest" || clothesUpper == "T-Shirt and a Vest" || clothesUpper == "Blouse and a Vest") && clothesMiddle == "Trousers" && clothesLower == "Sneakers") {
+			var mooiboiArray = ["Wow, you're such a mooiboi!", "Looking good! Where you going f*ckboi?", "Trying to get some girls? Well don't you worry because they won't see your manboobs with these kind of clothing", "Okay, okay. You kind of look great in this outfit"];
+			return mooiboiArray[Math.floor(Math.random()*mooiboiArray.length)];
 		} else {
-			return coldComment();
-		}
-	
-		function warmComment() {
-			var warmArray = ["Well here you go, I recommend "];
-			return warmArray[Math.floor(Math.random()*warmArray.length)];
-		}
-	
-		function normalComment() {
-			var normalArray = ["HAI"];
-			return normalArray[Math.floor(Math.random()*normalArray.length)];
-		}
-		
-		function coldComment() {
-			var coldArray = ["oooooo"];
-			return coldArray[Math.floor(Math.random()*coldArray.length)];
+			var randomArray = ["Wowowoowwoow, you look damn fabulous", "This outfit is great for this weather!", "Well do you like the results? This is the best I got!", "How about this? this is kind of good I guess?", "GREAT LOOKING GUY!"];
+			return randomArray[Math.floor(Math.random()*randomArray)];
 		}
 	}
 }
@@ -499,3 +489,4 @@ function shoesF() {
 
 
 
+//I love you! ;3 <3
