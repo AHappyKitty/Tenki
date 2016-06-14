@@ -1,6 +1,7 @@
 //Using the OpenWeatherMap API to make this.
 //The program can detect the users location with geolocation or with the zipcode provided.
 //The API can recognize ISO 3166-1 alpha-2 codes. https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+//VARSITY - So Sad, So Sad
 
 var APPID = "5d6a5f56f935e3664c0084469ebd625f";
 var temp;
@@ -10,6 +11,50 @@ var humidity;
 var wind;
 var direction;
 
+var upper;
+var middle;
+var lower;
+var greet;
+var clothesUpper = "Nothing";
+var clothesMiddle = "Nothing";
+var clothesLower = "Nothing";
+
+var iconValue;
+var tempValue;
+
+var getDate = new Date();
+var currentHour;
+var currentMintues;
+var displayHour;
+
+//UpperWarm
+var tshirt = false;
+var blouse = false;
+//MiddleWarm
+var shorts = false;
+var swimmingtrunks = false;
+//LowerWarm
+var slippers = false;
+var sneakers = false;
+var shoes = false;
+
+//UpperNormal
+var shirt = false;
+var vest = false;
+var sweater = false;
+//MiddleNormal
+var trousers = false;
+
+//UpperCold
+var jacket = false;
+var shirtjacket = false;
+var shirtvest = false;
+var tshirtvest = false;
+var blousevest = false;
+var comment;
+
+var randomArray = ["This outfit looks great on you!", "Okay then, maaayybbeee we need to change things up? Or nah, this is great too!", "Don't you look beautiful?", "Oh gosh, this is so fabulous!", "Maybe you can party hard with this outfit!", "Yeah, it looks great. You'll look like a hobo?", "I think you might be Felix, but then not a mooiboi.", "Man, don't you have any other clothes?", "I don't always give advice, but when I do. I do it horribly.", "Damn Daniel, you just look like party horse.", "Well, isn't this great?", "Very good! I meant the clothing combination, you look horrible."];
+
 window.onload = function () {
 	temp = document.getElementById("temperature");
 	loc = document.getElementById("location");
@@ -17,6 +62,22 @@ window.onload = function () {
 	humidity = document.getElementById("humidity");
 	wind = document.getElementById("wind");
 	direction = document.getElementById("direction");
+	
+	currentHour = getDate.getHours();
+	currentMinutes = getDate.getMinutes();
+		if (currentMinutes < 10) {
+			currentMinutes = "0" + currentMinutes;
+		}
+		console.log(currentHour + " " + currentMinutes);
+	displayHour = document.getElementById("time");
+	displayHour.innerHTML = currentHour + ":" + currentMinutes;
+	
+	
+	greet = document.getElementById("greet");
+	upper = document.getElementById("upper");
+	middle = document.getElementById("middle");
+	lower = document.getElementById("lower");
+	comment = document.getElementById("giveComment");
 	
 	if(navigator.geolocation) {
 		var showPosition = function(position) {
@@ -62,7 +123,7 @@ function sendRequest(url) {
 			weather.temp = K2C(data.main.temp);
 			update(weather);
 			
-			console.log(weather.temp + " " + weather.loc + " " + weather.humidity + " " + weather.wind + " " + weather.direction);
+			console.log(weather.temp + " " + weather.loc + " " + weather.humidity + " " + weather.wind + " " + weather.direction + " " + weather.icon);
 		}
 	};
 	xmlhttp.open("GET", url, true);
@@ -70,12 +131,20 @@ function sendRequest(url) {
 }
 
 function update(weather) {
+	tempValue = weather.temp;
+	iconValue = weather.icon;
+	
 	wind.innerHTML = weather.wind;
 	direction.innerHTML = weather.direction;
 	humidity.innerHTML = weather.humidity;
 	loc.innerHTML = weather.loc;
 	temp.innerHTML = weather.temp;
 	icon.src = "imgs/codes/" + weather.icon + ".png";
+	
+	greet.innerHTML = chooseGreet(weather);
+	updateC(weather);
+	
+	console.log(tempValue  + " " + iconValue)
 }
 
 function degreesToDirection(degrees) {
@@ -106,3 +175,319 @@ function K2C(k){
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 //Above: Weather Below: The Clothes system
 //>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+function chooseGreet(weather) {
+	if (currentHour >= 6 && currentHour < 12) {
+		return morningGreet();
+	} else if (currentHour >= 12 && currentHour < 18) {
+		return afternoonGreet();
+	} else if (currentHour >= 18 && currentHour <= 23) {
+		return eveningGreet();
+	} else if (currentHour > 0 && currentHour < 6) {
+		return nightGreet();
+	}
+	
+	function morningGreet() {
+		var morningChoices = ["Good morning!", "Hello sleepy head!", "Another day, another morning! Ready yet?", "Well isn't it fun? The start of the new day!", "How was breakfast? Or are you up this early?", "Well it's a beatutiful morning, isn't it?", "Quick, drink some coffee before you fall back to sleep!", "Going out early today?"];
+		return morningChoices[Math.floor(Math.random()*morningChoices.length)];
+	}
+	
+	function afternoonGreet() {
+		var afternoonChoices = ["Good afternoon!", "Eat a snack, helps you get through the day.", "Keep up the good work! And you'll be eating diner in no time.", "Don't snack too much now, otherwise you'll get chubby!", "I gotta work work work work work~", "Do you have free time? Yes? Good for you!", "It's time for you to eat something! I suggest a healthy snack?", "It's afternoon now, in case you can't read the clock."];
+		return afternoonChoices[Math.floor(Math.random()*afternoonChoices.length)];
+	}
+	
+	function eveningGreet() {
+		var eveningChoices = ["Good evening!", "Well, how was diner? Or do you always eat before six?", "Look at the sunset! It only comes once a day.", "Relax and sit back, I think you'll need that!", "Go watch a movie, the evening is the perfect time for it.", "Watch out if you go out, I don't want you to get hurt!", "Do you like the evening? I do, because that's when you can see the sunset.", "Again, it's evening now. Aren't you supposed to be preparing to go to bed?"];
+		return eveningChoices[Math.floor(Math.random()*eveningChoices.length)];
+	}
+	
+	function nightGreet() {
+		var nightChoices = ["Good night!", "You're still going out this late? Well, be safe!", "WHERE'S THE PARTY? OUT THERE IS THE PARTY!", "Zzzz, go sleep. But if you must go out, allow me to give you advice.", "Watch out for thieves at this hour, just be safe okay?", "Oh noes, at this hour vampires like to go out and suck your blood!", "Hmm, the night. It's so calm and beautiful, I can relate to why you want to go out now!", "Heeeeeeeey, be safe okay?"];
+		return nightChoices[Math.floor(Math.random()*nightChoices.length)];
+	}	
+}
+
+function clothesSystem(weather) {
+	
+	if (tempValue >= 20 && !(iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531)) {
+		warmClothesUpper();
+		warmClothesMiddle();
+		warmClothesLower();
+	} else if (tempValue >= 20 && iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531) {
+		normalClothesUpper;
+		normalClothesMiddle;
+		normalClothesLower;
+	} else if (tempValue >= 15 && tempValue < 20 && !(iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531)) {
+		normalClothesUpper();
+		normalClothesMiddle();
+		normalClothesLower();
+	} else if (tempValue >= 15 && tempValue <20 && iconValue >= 200 && iconValue <= 321 && iconValue >= 521 && iconValue <= 531) {
+		coldClothesUpper;
+		coldClothesMiddle;
+		coldClothesLower;
+	} else {
+		coldClothesUpper();
+		coldClothesMiddle();
+		coldClothesLower();
+	}
+	
+	function warmClothesUpper() {
+		if (tshirt===true) {
+			clothesUpper = "T-Shirt";
+		} else if (tshirt===false && blouse===true) {
+			clothesUpper = "Blouse";
+		} else if (tshirt===false && blouse===false) {
+			clothesUpper = "Nothing";
+		}
+	}
+	
+	function warmClothesMiddle() {
+		if (shorts===true) {
+			clothesMiddle = "Shorts";
+		} else if (shorts===false && swimmingtrunks===true) {
+			clothesMiddle = "Swimmingtrunks";
+		} else if (shorts===false && swimmingtrunks===false) {
+			clothesMiddle = "Underwear";
+		}
+	}
+	
+	function warmClothesLower() {
+		if (slippers===true) {
+			clothesLower = "Slippers";
+		} else if (slippers===false && sneakers===true) {
+			clothesLower = "Sneakers";
+		} else if (slippers===false && sneakers===false) {
+			clothesLower = "Lower";
+		}
+	}
+	
+	function normalClothesUpper () {
+		if (shirt===true) {
+			clothesUpper = "Shirt";
+		} else if (shirt===false && vest===true) {
+			clothesUpper = "Vest";
+		} else if (vest=== false && shirt===false && tshirt===true) {
+			clothesUpper = "T-Shirt";
+		} else if (vest=== false && shirt===false && tshirt===false && blouse===true) {
+			clothesUpper =  "Blouse";
+		} else if (vest=== false && shirt===false && tshirt===false && blouse===false && sweater===true) {
+			clothesUpper = "Sweater";
+		} else {
+			clothesUpper = "Nothing";
+		}
+	}
+	
+	function normalClothesMiddle () {
+		if (shorts===true) {
+			clothesMiddle = "Shorts";
+		} else if (shorts===false && trousers===true) {
+			clothesMiddle = "Trousers";
+		} else if (shorts===false && trousers===false)
+			clothesMiddle = "Underwear";
+	}
+	
+	function normalClothesLower () {
+		if (sneakers===true) {
+			clothesLower = "Sneakers";
+		} else if (sneakers===false && slippers===true) {
+			clothesLower = "Slippers";
+		} else if (sneakers===false && slippers===false && shoes===true) {
+			clothesLower = "Shoes";
+		} else {
+			clothesLower = "Nothing";
+		}
+	}
+	
+	function coldClothesUpper () {
+		if (sweater===true) {
+			clothesUpper = "Sweater";
+		} else if (sweater===false && shirt===true && jacket===true) {
+			clothesUpper = "Shirt and a Jacket";
+		} else if (sweater===false && shirt===true && jacket===false && vest===true) {
+			clothesUpper = "Shirt and a Vest";
+		} else if (sweater===false && shirt===false && jacket===false && vest===true && tshirt===true) {
+			clothesUpper = "T-Shirt and a Vest";
+		}  else if  (sweater===false && shirt===false && jacket===false && vest===true && tshirt===false && blouse===true) {
+			clothesUpper = "Blouse and a Vest"; 
+		} else if (sweater===false && shirt===true && jacket===false && vest===false && tshirt===false && blouse===false) {
+			clothesUpper = "Shirt";
+		} else {
+			clothesUpper = "Nothing";
+		}
+	}
+	
+	function coldClothesMiddle () {
+		if (trousers===true) {
+			clothesMiddle = "Trousers";
+		} else if (trousers===false) {
+			clothesMiddle = "Underwear";
+		}
+	}
+	
+	function coldClothesLower () {
+		if (sneakers===true) {
+			clothesLower = "Sneakers";
+		} else if (sneakers===false && shoes===true) {
+			clothesLower = "Shoes";
+		} else if (sneakers===false && shoes===false)
+			clothesLower = "Nothing";
+	}	
+	updateC(weather);
+}
+
+function updateC(weather) {
+	upper.innerHTML = clothesUpper;
+	middle.innerHTML = clothesMiddle;
+	lower.innerHTML = clothesLower;
+	
+	showtshirt.innerHTML = tshirt;
+	showshirt.innerHTML = shirt;
+	showblouse.innerHTML = blouse;
+	showjacket.innerHTML = jacket;
+	showvest.innerHTML = vest;
+	showsweater.innerHTML = sweater;
+	showshorts.innerHTML = shorts;
+	showswimmingtrunks.innerHTML = swimmingtrunks;
+	showtrousers.innerHTML = trousers;
+	showslippers.innerHTML = slippers;
+	showsneakers.innerHTML = sneakers;
+	showshoes.innerHTML = shoes;
+	
+	giveComment.innerHTML = comment();
+	
+	function comment() {
+		if (clothesMiddle == "Underwear") {
+			var UndieArray = ["Fake it till your naked", "Hot damn, underwear?", "Just do it!", "Show it off! I guess", "Why the $@*% u lying? We know you got trousers!", "You sure you got nothing else than underwear?"];
+			return UndieArray[Math.floor(Math.random()*UndieArray.length)]
+		} else if (clothesUpper == "Nothing" &&  clothesMiddle == "Underwear" && clothesLower == "Nothing") {
+			var nothingArray = ["Why the $%*# lying? We know you got clothes!", "You crazy man, nothing but underwear!", "Show off that naked body!", "'OMG everything deleted, #prank.' -Jasper Beckeringh", "Oh no, I think we need to call the fashion police, officer Beckeringh!"];
+			return nothingArray[Math.floor(Math.random()*nothingArray.length)];
+		} else if (clothesUpper == "Nothing" && clothesMiddle == "Swimmingtrunks" && clothesLower == "Slippers") {
+			var swimArray = ["Wow, kind of sexy I guess? Unless you have no abs.", "Go swimming while you're at it!", "No shorts? Well here you go, a swimmingtrunk"];
+			return swimArray[Math.floor(Math.random()*swimArray)];
+		} else if ((clothesUpper == "Sweater" || clothesUpper == "Shirt and a Jacket" || clothesUpper == "Shirt and a Vest" || clothesUpper == "T-Shirt and a Vest" || clothesUpper == "Blouse and a Vest") && clothesMiddle == "Trousers" && clothesLower == "Sneakers") {
+			var mooiboiArray = ["Wow, you're such a mooiboi!", "Looking good! Where you going f*ckboi?", "Trying to get some girls? Well don't you worry because they won't see your manboobs with these kind of clothing", "Okay, okay. You kind of look great in this outfit", "You just look like Felix Spruijt man! Good job!"];
+			return mooiboiArray[Math.floor(Math.random()*mooiboiArray.length)];
+		} else {
+			return randomArray[Math.floor(Math.random()*randomArray.length)];
+		}
+	}
+}
+
+function tshirtF() {
+	if  (tshirt === false) {
+		tshirt = true;
+	} else {
+		tshirt = false;
+	}
+	clothesSystem();
+}
+
+function shirtF() {
+	if (shirt === false) {
+		shirt = true;
+	} else {
+		shirt = false;
+	}
+	clothesSystem();
+}
+
+function  blouseF() {
+	if (blouse === false) {
+		blouse = true;
+	} else {
+		blouse = false;
+	}
+	clothesSystem();
+}
+
+function jacketF() {
+	if (jacket === false) {
+		jacket = true;
+	} else {
+		jacket = false;
+	}
+	clothesSystem();
+}
+
+function vestF() {
+	if (vest === false) {
+		vest = true;
+	} else {
+		vest = false;
+	}
+	clothesSystem();
+}
+
+function sweaterF() {
+	if (sweater === false) {
+		sweater = true;
+	} else {
+		sweater = false;
+	}
+	clothesSystem();
+}
+
+function shortsF() {
+	if (shorts === false) {
+		shorts = true;
+	} else {
+		shorts = false;
+	}
+	clothesSystem();
+}
+
+function swimmingtrunksF() {
+	if (swimmingtrunks === false) {
+		swimmingtrunks = true;
+	} else {
+		swimmingtrunks = false;
+	}
+	clothesSystem();
+}
+
+function trousersF() {
+	if (trousers === false) {
+		trousers = true;
+	} else {
+		trousers= false;
+	}
+	clothesSystem();
+}
+
+function slippersF() {
+	if (slippers === false) {
+		slippers = true;
+	} else {
+		slippers = false;
+	}
+	clothesSystem();
+}
+
+function sneakersF() {
+	if (sneakers === false) {
+		sneakers = true;
+	} else {
+		sneakers = false;
+	}
+	clothesSystem();
+}
+
+function shoesF() {
+	if (shoes === false) {
+		shoes = true;
+	} else {
+		shoes = false;
+	}
+	clothesSystem();
+}
+
+
+
+
+
+
+
+
+//I love you! ;3 <3
