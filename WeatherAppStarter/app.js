@@ -53,6 +53,8 @@ var tshirtvest = false;
 var blousevest = false;
 var comment;
 
+var randomArray = ["This outfit looks great on you!", "Okay then, maaayybbeee we need to change things up? Or nah, this is great too!", "Don't you look beautiful?", "Oh gosh, this is so fabulous!", "Maybe you can party hard with this outfit!", "Yeah, it looks great. You'll look like a hobo?", "I think you might be Felix, but then not a mooiboi.", "Man, don't you have any other clothes?", "I don't always give advice, but when I do. I do it horribly.", "Damn Daniel, you just look like party horse.", "Well, isn't this great?", "Very good! I meant the clothing combination, you look horrible."];
+
 window.onload = function () {
 	temp = document.getElementById("temperature");
 	loc = document.getElementById("location");
@@ -365,11 +367,10 @@ function updateC(weather) {
 			var swimArray = ["Wow, kind of sexy I guess? Unless you have no abs.", "Go swimming while you're at it!", "No shorts? Well here you go, a swimmingtrunk"];
 			return swimArray[Math.floor(Math.random()*swimArray)];
 		} else if ((clothesUpper == "Sweater" || clothesUpper == "Shirt and a Jacket" || clothesUpper == "Shirt and a Vest" || clothesUpper == "T-Shirt and a Vest" || clothesUpper == "Blouse and a Vest") && clothesMiddle == "Trousers" && clothesLower == "Sneakers") {
-			var mooiboiArray = ["Wow, you're such a mooiboi!", "Looking good! Where you going f*ckboi?", "Trying to get some girls? Well don't you worry because they won't see your manboobs with these kind of clothing", "Okay, okay. You kind of look great in this outfit"];
+			var mooiboiArray = ["Wow, you're such a mooiboi!", "Looking good! Where you going f*ckboi?", "Trying to get some girls? Well don't you worry because they won't see your manboobs with these kind of clothing", "Okay, okay. You kind of look great in this outfit", "You just look like Felix Spruijt man! Good job!"];
 			return mooiboiArray[Math.floor(Math.random()*mooiboiArray.length)];
 		} else {
-			var randomArray = ["Wowowoowwoow, you look damn fabulous", "This outfit is great for this weather!", "Well do you like the results? This is the best I got!", "How about this? this is kind of good I guess?", "GREAT LOOKING GUY!"];
-			return randomArray[Math.floor(Math.random()*randomArray)];
+			return randomArray[Math.floor(Math.random()*randomArray.length)];
 		}
 	}
 }
